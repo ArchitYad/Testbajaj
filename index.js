@@ -15,7 +15,7 @@ function processData(data) {
   let sum = 0;
 
   for (let item of data) {
-    // ✅ Reject anything that is not a string
+
     if (typeof item !== "string") {
       throw new Error(`Invalid input: ${JSON.stringify(item)} (not a string)`);
     }
@@ -67,7 +67,6 @@ app.post("/bfhl", (req, res) => {
   try {
     const { data } = req.body;
 
-    // ✅ Check if request has "data" and is an array
     if (!data || !Array.isArray(data)) {
       return res.status(400).json({
         is_success: false,
@@ -79,13 +78,10 @@ app.post("/bfhl", (req, res) => {
     res.status(200).json(result);
 
   } catch (err) {
-    // ✅ Central error handler
     res.status(400).json({
       is_success: false,
       message: err.message || "Unexpected error",
     });
   }
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+module.exports = app;
